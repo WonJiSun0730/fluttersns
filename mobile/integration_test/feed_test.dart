@@ -28,7 +28,10 @@ void main() {
       await tester.tap(find.text('게시'));
       await tester.pump();
       await waitFor(find.text('첫 번째 이야기'));
-      await tester.tap(find.text('좋아요 0'));
+      await tester.pumpAndSettle();
+      final likeButton = find.text('좋아요 0');
+      await tester.scrollUntilVisible(likeButton, 100, scrollable: find.byType(Scrollable));
+      await tester.tap(likeButton);
       await tester.pump();
       await waitFor(find.text('좋아요 1'));
     });
